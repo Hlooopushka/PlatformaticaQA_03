@@ -1,14 +1,11 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.remote.RemoteWebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import javax.swing.*;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -69,8 +66,8 @@ public class QA_Group_Timur {
                 ("//div[@id = 'HOOK_PAYMENT']//a[@class='bankwire']")).click();
         driver.findElement(By.xpath("//p[@id = 'cart_navigation']/button[@type = 'submit']")).click();
         WebElement orderComplete = driver.findElement(By.xpath("//p[@class = 'cheque-indent']/strong[@class = 'dark']"));
-
-        Assert.assertEquals(orderComplete.getText(), "Your order on My Store is complete.");
+        
+        Assert.assertEquals(orderComplete.getText(),"Your order on My Store is complete.");
     }
 
     @Test
@@ -123,32 +120,13 @@ public class QA_Group_Timur {
         driver.findElement(By.xpath("//*[@id=\"actuality\"]/div/div/section[1]/div/ul/a")).click();
         Thread.sleep(500);
 
-        JavascriptExecutor jse = (JavascriptExecutor) driver;
+        JavascriptExecutor jse = (JavascriptExecutor)driver;
         jse.executeScript("scroll(0, 1430);");
 
         driver.findElement(By.xpath("//*[@id=\"infinitescroll\"]/div[5]/a")).click();
 
-        WebElement q = driver.findElement(By.xpath("//*[@id=\"profile\"]/div[2]/span[2]"));
+        WebElement q  = driver.findElement(By.xpath("//*[@id=\"profile\"]/div[2]/span[2]"));
 
         Assert.assertEquals(q.getText(), "Ordeal");
-    }
-
-
-    @Test
- public void testAlexeyLugovoy(){
-    driver.get("https://www.anekdot.ru/");
-    WebElement anekdoty = driver.findElement(By.xpath("//ul/li/a[text()='Анекдоты']"));
-        Actions navesti = new Actions(driver);
-        navesti.moveToElement(anekdoty).build().perform();
-    WebElement bestMonth = driver.findElement(By.xpath("//ul/li/a[@title='Самые смешные анекдоты за месяц']"));
-    bestMonth.click();
-    WebElement first = driver.findElement(By.xpath("//div[@data-id='1251367']/div[@class='text']"));
-    System.out.println(first.getText());
-    WebElement h1 = driver.findElement(By.cssSelector("body h1"));
-    Assert.assertEquals(h1.getText().toUpperCase(), "САМЫЕ СМЕШНЫЕ АНЕКДОТЫ ЗА МЕСЯЦ!");
-
-
-
-
     }
 }
