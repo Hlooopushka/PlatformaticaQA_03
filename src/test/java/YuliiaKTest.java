@@ -1,3 +1,4 @@
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,10 +15,7 @@ public class YuliiaKTest {
 
     @BeforeMethod
     public void setUp() {
-
-        String chromeDriver = "webdriver.chrome.driver";
-        String webPath = "c:\\Users\\1980v\\Downloads\\chromedriver_win32\\chromedriver.exe";
-        System.setProperty(chromeDriver, webPath);
+        WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
     }
 
@@ -43,7 +41,6 @@ public class YuliiaKTest {
         divinationGoldFish.click();
 
         String actualResult = driver.getCurrentUrl();
-
         Assert.assertEquals(actualResult, expectedResult);
 
     }
@@ -64,7 +61,6 @@ public class YuliiaKTest {
         queenKatya.click();
 
         String actualResult = driver.getCurrentUrl();
-
         Assert.assertEquals(actualResult, expectedResult);
 
     }
