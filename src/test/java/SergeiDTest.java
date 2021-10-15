@@ -40,6 +40,7 @@ public class SergeiDTest {
         List<WebElement> itemList = driver.findElements(By.xpath("//a[@data-testid = 'itemDescription']"));
         for (int i = 0; i < itemList.size(); i++) {
             Assert.assertTrue(itemList.get(i).getText().toLowerCase().contains(text));
+
         }
     }
 
