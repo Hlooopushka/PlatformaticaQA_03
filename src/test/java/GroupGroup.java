@@ -43,8 +43,8 @@ public class GroupGroup {
         driver.findElement(By.id("gh-search-input")).sendKeys(text + "\n");
 
         List<WebElement> itemList = driver.findElements(By.xpath("//h4[@class='sku-header']/a"));
-        for (int i = 0; i < itemList.size(); i++) {
-            Assert.assertTrue(itemList.get(i).getText().toLowerCase().contains(text));
+        for (WebElement webElement : itemList) {
+            Assert.assertTrue(webElement.getText().toLowerCase().contains(text));
         }
     }
 
@@ -104,8 +104,8 @@ public class GroupGroup {
         search.sendKeys("вишневский\n");
 
         List<WebElement> itemlist = driver.findElements(By.className("viewer-type-card__li "));
-        for (int i = 0; i < itemlist.size(); i++) {
-            Assert.assertTrue(itemlist.get(i).getText().toLowerCase(Locale.ROOT).contains("вишневский"));
+        for (WebElement webElement : itemlist) {
+            Assert.assertTrue(webElement.getText().toLowerCase(Locale.ROOT).contains("вишневский"));
         }
     }
 
