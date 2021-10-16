@@ -90,7 +90,7 @@ public class GroupJavaWestCoast {
         Assert.assertEquals(resultActual,resultExpected);
     }
     @Test
-    public void yelenaAnderson() throws InterruptedException {
+    public void testYelenaAnderson() throws InterruptedException {
 
         String expectedResult = "https://www.asos.com/us/";
 
@@ -103,7 +103,7 @@ public class GroupJavaWestCoast {
     }
 
     @Test
-    public void yelenaAnderson1() {
+    public void testYelenaAnderson1() {
 
         driver.get("https://www.asos.com/us/");
 
