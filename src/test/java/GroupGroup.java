@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 import java.util.List;
 import org.testng.Assert;
 
+import java.util.Locale;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -94,5 +95,38 @@ public class GroupGroup {
         String expectedUrl = driver.getCurrentUrl();
         Assert.assertEquals(expectedUrl, actualUrl);
 
+    }
+
+    @Test
+    public void testZinaidaLepesh() {
+        driver.get("https://oz.by/");
+
+        WebElement search = driver.findElement(By.id("top-s"));
+        search.sendKeys("вишневский\n");
+
+        List<WebElement> itemlist = driver.findElements(By.className("viewer-type-card__li "));
+        for (int i = 0; i < itemlist.size(); i++) {
+            Assert.assertTrue(itemlist.get(i).getText().toLowerCase(Locale.ROOT).contains("вишневский"));
+        }
+    }
+
+    @Test
+    public void testZinaidaLepesh2() {
+        driver.get("https://oz.by/");
+
+        WebElement login = driver.findElement(By.className("top-panel__userbar__auth"));
+        login.click();
+
+        WebElement byemail = driver.findElement(By.id("loginFormLoginEmailLink"));
+        byemail.click();
+
+        WebElement email = driver.findElement(By.name("cl_email"));
+        email.sendKeys("abc@gmail.com");
+
+        WebElement password = driver.findElement(By.name("cl_psw"));
+        password.sendKeys("pass");
+
+        WebElement enter = driver.findElement(By.xpath("//*[@id=\"loginForm\"]/button"));
+        enter.click();
     }
 }
