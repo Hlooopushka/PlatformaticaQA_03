@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 import java.util.List;
 import org.testng.Assert;
 
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class GroupGroup {
@@ -56,5 +57,42 @@ public class GroupGroup {
 
         WebElement productName = driver.findElement(By.xpath("//h4[@class='sku-header']"));
         Assert.assertEquals(productName.getText(), "Apple - iPhone 13 Pro Max 5G 512GB - Graphite (Verizon)");
+    }
+
+    @Test
+    public void PolinaTceretian1() {
+        //testCreateAccountPageOpen()
+
+        driver.get("https://www.starbucks.com");
+
+        WebElement signIn = driver.findElement(By.xpath("//*[contains(text(), 'Join now')]"));
+        signIn.click();
+
+        String actualUrl = "https://www.starbucks.com/account/create";
+        String expectedUrl = driver.getCurrentUrl();
+        Assert.assertEquals(expectedUrl, actualUrl);
+
+    }
+
+    @Test
+    public void PolinaTceretian2() throws InterruptedException {
+        //testCreateAccountRegistration()
+        driver.get("https://www.starbucks.com/account/create");
+        driver.findElement(By.id("firstName")).sendKeys("T");
+        driver.findElement(By.id("lastName")).sendKeys("E");
+
+        WebElement email = driver.findElement(By.id("emailAddress"));
+        Random randomGenerator = new Random();
+        int randomInt = randomGenerator. nextInt(1000);
+        email. sendKeys("username"+ randomInt +"@gmail.com");
+
+        driver.findElement(By.id("password")).sendKeys("123456Abc!");
+        driver.findElement(By.xpath("//input[@id ='termsAndConditions']/..//span[@class='block option__labelMarker']")).click();
+        driver.findElement(By.xpath("//*[contains(text(), 'Create account')]")).click();
+        Thread.sleep(3000);
+        String actualUrl = "https://app.starbucks.com/";
+        String expectedUrl = driver.getCurrentUrl();
+        Assert.assertEquals(expectedUrl, actualUrl);
+
     }
 }
