@@ -20,7 +20,6 @@ import java.util.regex.Pattern;
 public class MielofonIsMine extends BaseTest {
 
     private final static String URL_VW = "https://www.vw.com/";
-    private WebDriver driver;
 
     @Test
     public void testVitalyZverevFirst()  {
@@ -64,58 +63,44 @@ public class MielofonIsMine extends BaseTest {
         Assert.assertEquals(first, second);
     }
 
-    @BeforeMethod
-    public void setUp() {
-        WebDriverManager.chromedriver().setup();
-
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
-    }
-
-    @AfterMethod
-    public void setDown() {
-        driver.quit();
-    }
-
     @Test
     public void testSearchAnastasiaKaz() {
 
-        driver.get("https://rp5.by");
+        getDriver().get("https://rp5.by");
 
-        WebElement search = driver.findElement(By.id("searchStr"));
-        WebElement button = driver.findElement(By.id("searchButton"));
+        WebElement search = getDriver().findElement(By.id("searchStr"));
+        WebElement button = getDriver().findElement(By.id("searchButton"));
 
         search.sendKeys("лида");
         button.click();
 
-        WebElement text = driver.findElement(By.id("leftNavi"));
+        WebElement text = getDriver().findElement(By.id("leftNavi"));
         Assert.assertEquals(text.getText(), "Результат поиска");
     }
 
     @Test
     public void testLogotipAnastasiaKaz() {
 
-        driver.get("https://rp5.by");
+        getDriver().get("https://rp5.by");
 
-        WebElement search = driver.findElement(By.id("searchStr"));
-        WebElement button = driver.findElement(By.id("searchButton"));
+        WebElement search = getDriver().findElement(By.id("searchStr"));
+        WebElement button = getDriver().findElement(By.id("searchButton"));
 
         search.sendKeys("лида");
         button.click();
 
-        WebElement logotip = driver.findElement(By.id("logo"));
+        WebElement logotip = getDriver().findElement(By.id("logo"));
         Assert.assertTrue(logotip.isDisplayed());
     }
 
     @Test
     public void testFAQAnastasiaKaz() {
-        driver.get("https://rp5.by");
+        getDriver().get("https://rp5.by");
 
-        WebElement question = driver.findElement(By.xpath("//div[@id='topMenuContent']/a[5]"));
+        WebElement question = getDriver().findElement(By.xpath("//div[@id='topMenuContent']/a[5]"));
         question.click();
 
-        WebElement lastQuestion = driver.findElement(By.xpath("//ol/li[9]/b"));
+        WebElement lastQuestion = getDriver().findElement(By.xpath("//ol/li[9]/b"));
         Assert.assertEquals(lastQuestion.getText(), "Что означает определение \"обложной\" во фразах \"обложной дождь\" или \"обложной снег\"?");
     }
 }
