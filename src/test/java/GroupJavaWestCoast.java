@@ -89,5 +89,33 @@ public class GroupJavaWestCoast {
         }
         Assert.assertEquals(resultActual,resultExpected);
     }
+    @Test
+    public void testYelenaAnderson() throws InterruptedException {
+
+        String expectedResult = "https://www.asos.com/us/";
+
+        driver.get("https://www.asos.com/us/");
+
+        Thread.sleep(3000);
+
+        String actualResult = driver.getCurrentUrl();
+        Assert.assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    public void testYelenaAnderson1() {
+
+        driver.get("https://www.asos.com/us/");
+
+        WebElement searchBar = driver.findElement(By.xpath("//input[@type='search']"));
+
+        searchBar.sendKeys("skirt\n");
+
+        WebElement confirmText = driver.findElement(By.xpath("//p[contains(text(),'skirt')]"));
+        String confirmTextText = confirmText.getText();
+        Assert.assertEquals(confirmTextText, "\"Skirt\"");
+    }
 }
+
+
 
