@@ -4,6 +4,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -102,5 +103,63 @@ public class JavaHamsters {
         driver.findElement(By.xpath("//a[@target='_self' and contains(text(), 'Акции')]")).click();
 
         Assert.assertEquals(driver.getCurrentUrl(), expectedUrl);
+    }
+    @Test
+    public void ArtsiomAzarankaTestTextBox() {
+        driver.get("https://demoqa.com/text-box");
+
+        String FullName = "Marko Polo";
+        String UserEmail = "test@test.com";
+        String CurrentAddress = "street";
+        String PermanentAddress = "ulica";
+
+
+        driver.findElement(By.xpath("//input[@placeholder='Full Name']")).sendKeys(FullName);
+        driver.findElement(By.xpath("//input[@placeholder='name@example.com']")).sendKeys(UserEmail);
+        driver.findElement(By.xpath("//textarea[@placeholder='Current Address']")).sendKeys(CurrentAddress);
+        driver.findElement(By.xpath("//textarea[@id='permanentAddress']")).sendKeys(PermanentAddress);
+
+        driver.findElement(By.xpath("//button[@id='submit']")).click();
+
+        WebElement name = driver.findElement(By.xpath("//p[@id='name']"));
+        WebElement email = driver.findElement(By.xpath("//p[@id='email']"));
+        WebElement currentAddress = driver.findElement(By.xpath("//p[@id='currentAddress']"));
+        WebElement permanentAddress = driver.findElement(By.xpath("//p[@id='permanentAddress']"));
+
+        Assert.assertEquals(name.getText(),"Name:"+ FullName);
+        Assert.assertEquals(email.getText(),"Email:"+ UserEmail);
+        Assert.assertEquals(currentAddress.getText(),"Current Address :"+ CurrentAddress);
+        Assert.assertEquals(permanentAddress.getText(),"Permananet Address :"+ PermanentAddress);
+        //тест написан на тот результат, который выдаёт сайт (есть баг - ошибка в слове Permanent на выводе результата)
+
+
+
+    }
+
+    @Test
+    public void ArtsiomAzarankaTestButtons(){
+
+        Actions actions = new Actions(driver);
+
+        driver.get("https://demoqa.com/buttons");
+
+
+        WebElement doubleclick = driver.findElement(By.xpath("//button[@id='doubleClickBtn']"));
+        actions.doubleClick(doubleclick).perform();
+
+        WebElement rightclick = driver.findElement(By.xpath("//button[@id='rightClickBtn']"));
+        actions.contextClick(rightclick).perform();
+
+        WebElement oneclicl = driver.findElement(By.xpath("//button[text()='Click Me']"));
+        actions.click(oneclicl).perform();
+
+        WebElement doubleClickMessage = driver.findElement(By.xpath("//p[@id='doubleClickMessage']"));
+        WebElement rightClickMessage = driver.findElement(By.xpath("//p[@id='rightClickMessage']"));
+        WebElement dynamicClickMessage = driver.findElement(By.xpath("//p[@id='dynamicClickMessage']"));
+
+        Assert.assertEquals(doubleClickMessage.getText(),"You have done a double click");
+        Assert.assertEquals(rightClickMessage.getText(),"You have done a right click");
+        Assert.assertEquals(dynamicClickMessage.getText(),"You have done a dynamic click");
+
     }
 }
