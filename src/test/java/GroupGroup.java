@@ -31,7 +31,7 @@ public class GroupGroup {
     }
 
     @Test
-    public void NarimanMirzakhanov1() {
+    public void testNarimanMirzakhanov1() {
         driver.get("https://www.bestbuy.com/");
 
         WebElement closeButton = driver.findElement(By.xpath("//button[@class='c-close-icon c-modal-close-icon']"));
@@ -47,7 +47,7 @@ public class GroupGroup {
     }
 
     @Test
-    public void NarimanMirzakhanov2() {
+    public void testNarimanMirzakhanov2() {
         driver.get("https://www.bestbuy.com/");
         driver.findElement(By.xpath("//button[@class='c-close-icon c-modal-close-icon']")).click();
 
