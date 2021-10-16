@@ -117,6 +117,5 @@ public class MielofonIsMine extends BaseTest {
 
         WebElement lastQuestion = driver.findElement(By.xpath("//ol/li[9]/b"));
         Assert.assertEquals(lastQuestion.getText(), "Что означает определение \"обложной\" во фразах \"обложной дождь\" или \"обложной снег\"?");
-
     }
 }
