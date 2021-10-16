@@ -1,0 +1,66 @@
+import java.util.concurrent.TimeUnit;
+
+public class saucedDemoTest{
+
+    private WebDriver driver;
+    String url = "https://www.saucedemo.com/";
+    String chromeDriver = "webdriver.chrome.driver";
+    String chromeDriverPath = "C:/Users/Dasha/IdeaProjects/chromedriver.exe";
+
+
+    @BeforeMethod
+    public void setUp() {
+        System.setProperty(chromeDriver, chromeDriverPath);
+        driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().window().maximize();
+        driver.get(url);
+
+    }
+
+    @AfterMethod
+    public void setDown() {
+        driver.close();
+        driver.quit();
+    }
+
+    @Test
+    public void goToLoginPage() throws InterruptedException {
+
+        String currentUrl = driver.getCurrentUrl();
+        Thread.sleep(3000);
+
+        Assert.assertEquals(currentUrl, url); //does it the same urls?
+    }
+
+    @Test
+    public void preconditionsPlaceholdersNames() {
+        String placeholderUsernameTextExpected = "Username";
+        String passwordTextExpected = "Password";
+        WebElement placeholderUserName = driver.findElement(By.xpath("//input[@id='user-name']")); //placeholder for username
+
+        WebElement placeholderPassword = driver.findElement(By.id("password")); //placeholder for password
+
+
+        String placeholderNameUsername = placeholderUserName.getAttribute("placeholder");
+        String placeholderPasswordActual = placeholderPassword.getAttribute("placeholder");
+
+        Assert.assertEquals(placeholderNameUsername, placeholderUsernameTextExpected); //does it have correct placeholder name for username?
+        Assert.assertEquals(passwordTextExpected, placeholderPasswordActual);  //does it have correct placeholder name for password?
+    }
+
+    @Test
+    public void loginCheck() {
+        String expectedPageAfterLogin = "https://www.saucedemo.com/inventory.html";
+        WebElement loginBtn = driver.findElement(By.id("login-button"));
+        WebElement placeholderUserName = driver.findElement(By.xpath("//input[@id='user-name']")); //placeholder for username
+        WebElement placeholderPassword = driver.findElement(By.id("password")); //placeholder for password
+
+        placeholderUserName.sendKeys("standard_user");
+        placeholderPassword.sendKeys("secret_sauce");
+        loginBtn.click();
+
+        String currentUrlAfterLogin = driver.getCurrentUrl();
+        Assert.assertEquals(currentUrlAfterLogin, expectedPageAfterLogin);
+    }
+}
