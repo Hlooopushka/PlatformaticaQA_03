@@ -12,20 +12,22 @@ import java.util.concurrent.TimeUnit;
 
 public class GroupJavaWestCoast {
 
-    WebDriver driver;
+    private WebDriver driver;
+
+    private static final By SCOREBUTTON = By.xpath("//div[@class='ml-10px is-inline']");
+    private static final By HONOR = By.xpath("//b[text()='Honor:']/..");
+    private static final By RANKFIELD = By.xpath("//b[text()=\"Rank:\"]/..");
+    private static final By OVERALLFIELD = By.xpath("//b[text()=\"Overall:\"]/..");
+    private static final By LOGINBUTTON = By.xpath("//a[text()='Log In']");
+    private static final By EMAILFIELD = By.id("user_email");
+    private static final By PASSWORDFIELD = By.id("user_password");
+    private static final By SIGNINBUTTON = By.xpath("//button[text()='Sign in']");
 
     public void signInMethodIliaP(){
-        WebElement login = driver.findElement(By.xpath("//a[text()='Log In']"));
-        login.click();
-
-        WebElement emailField = driver.findElement(By.id("user_email"));
-        emailField.sendKeys("testing@testing.com");
-
-        WebElement passwordField = driver.findElement(By.id("user_password"));
-        passwordField.sendKeys("Test88");
-
-        WebElement signInButton = driver.findElement(By.xpath("//button[text()='Sign in']"));
-        signInButton.click();
+        driver.findElement(LOGINBUTTON).click();
+        driver.findElement(EMAILFIELD).sendKeys("testing@testing.com");
+        driver.findElement(PASSWORDFIELD).sendKeys("Test88");
+        driver.findElement(SIGNINBUTTON).click();
     }
 
     @BeforeMethod
@@ -51,11 +53,11 @@ public class GroupJavaWestCoast {
 
         signInMethodIliaP();
 
-        WebElement scoreButton = driver.findElement(By.xpath("//div[@class='ml-10px is-inline']"));
+        WebElement scoreButton = driver.findElement(SCOREBUTTON);
         String actualValue = "Honor:" + scoreButton.getText();
         scoreButton.click();
 
-        WebElement honor = driver.findElement(By.xpath("//b[text()='Honor:']/.."));
+        WebElement honor = driver.findElement(HONOR);
         String expectedValue = honor.getText();
 
         Assert.assertEquals(actualValue, expectedValue);
@@ -68,10 +70,9 @@ public class GroupJavaWestCoast {
 
         signInMethodIliaP();
 
-        WebElement scoreButton = driver.findElement(By.xpath("//div[@class='ml-10px is-inline']"));
-        scoreButton.click();
+        driver.findElement(SCOREBUTTON).click();
 
-        WebElement rankField = driver.findElement(By.xpath("//b[text()=\"Rank:\"]/.."));
+        WebElement rankField = driver.findElement(RANKFIELD);
         String expectedValue = rankField.getText();
         String resultExpected = "";
         for(int i = 0;i<expectedValue.length();i++){
@@ -79,7 +80,7 @@ public class GroupJavaWestCoast {
                 resultExpected += expectedValue.charAt(i+1);
             }
         }
-        WebElement overallField = driver.findElement(By.xpath("//b[text()=\"Overall:\"]/.."));
+        WebElement overallField = driver.findElement(OVERALLFIELD);
         String actualValue = overallField.getText();
         String resultActual = "";
         for(int i = 0;i<actualValue.length();i++){
