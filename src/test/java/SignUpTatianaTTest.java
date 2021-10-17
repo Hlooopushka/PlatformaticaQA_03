@@ -22,6 +22,12 @@ public class SignUpTatianaTTest {
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         driver.manage().window().maximize();
     }
+
+    @AfterMethod
+    public void setDown() {
+        driver.quit();
+    }
+
     @Test
     public void TestRegistration() throws InterruptedException {
         driver.get("https://humans.net/");
@@ -56,9 +62,5 @@ public class SignUpTatianaTTest {
         WebElement error = driver.findElement(By.xpath("//div[text()='Incorrect verification code']"));
 
         Assert.assertEquals(error.getText(), "Incorrect verification code");
-    }
-    @AfterMethod
-    public void setDown() {
-        driver.quit();
     }
 }
