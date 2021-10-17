@@ -167,7 +167,7 @@ public class JavaHamsters {
     }
 
     @Test
-    public void testSavinovaContactUsButton() {
+    public void testNataliaSavinovaContactUsButton() {
         driver.get(MAIN_PAGE_URL);
         driver.findElement(By.xpath("//a[@title = 'Contact Us']")).click();
 
@@ -177,7 +177,7 @@ public class JavaHamsters {
     }
 
     @Test
-    public void testSavinovaSignInButton() {
+    public void testNataliaSavinovaSignInButton() {
         driver.get(MAIN_PAGE_URL);
         driver.findElement(By.xpath("//a[@title = 'Log in to your customer account']")).click();
 
@@ -187,7 +187,7 @@ public class JavaHamsters {
     }
 
     @Test
-    public void testSavinovaSaleLink() {
+    public void testNataliaSavinovaSaleLink() {
         driver.get(MAIN_PAGE_URL);
         driver.findElement(By.xpath("//div[@id = 'htmlcontent_top']//li[@class = 'htmlcontent-item-1 col-xs-4']")).click();
 
