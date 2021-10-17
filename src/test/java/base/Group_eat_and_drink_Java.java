@@ -11,6 +11,8 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class Group_eat_and_drink_Java {
@@ -21,24 +23,21 @@ public class Group_eat_and_drink_Java {
     String expectedResultURLCabinet = "https://askent.ru/order/";
     String expectedResultSingIn = "Не верный логин или пароль";
 
-    // ---- ACT ----
     @BeforeMethod
-    public void setUp() throws InterruptedException {
-
-        WebDriverManager.chromiumdriver().setup();
+    public void serUp() {
+        WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
-//      driver.manage().window().maximize(); // не хочу применять, но в проекте пусть будет.
-        Thread.sleep(3000);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().window().maximize();
     }
 
     @AfterMethod
     public void setDown() {
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.close();
         driver.quit();
     }
 
-    @Test(description = "Some description @Test-annotation for practice", priority = 1) // Для практики в аннотацию добавлены атрибуты
+    @Test(description = "Some description @Test-annotation for practice", priority = 1)
+    // Для практики в аннотацию добавлены атрибуты
     public void testFindCorrectItem() {
 
         driver.get(MainUrl);
@@ -98,4 +97,35 @@ public class Group_eat_and_drink_Java {
         // ---- ASSERT ----
         Assert.assertEquals(message.getText(), expectedResultSingIn);
     }
+
+    @Test
+    public void testOlenaKSearches() {
+        driver.get("https://www.kobo.com/");
+        String bookName = "Harry Potter";
+
+        WebElement searchField = driver.findElement(By.name("query"));
+        searchField.sendKeys(bookName + "\n");
+
+        List<WebElement> itemList = driver.findElements(By.xpath("//h2[@class='title product-field']/child::a"));
+        for (WebElement item : itemList) {
+            Assert.assertTrue(item.getText().toLowerCase(Locale.ROOT).
+                    contains(bookName.toLowerCase(Locale.ROOT)));
+        }
+    }
+
+    @Test
+    public void testOlenaKFindByIsbn() {
+        driver.get("https://www.kobo.com/");
+        String numberIsbn = "9781781103326";
+        String expectedResult = "Harry Potter en de Steen der Wijzen";
+
+        WebElement searchField = driver.findElement(By.name("query"));
+        searchField.sendKeys(numberIsbn + "\n");
+
+        WebElement bookTitle = driver.findElement(By.xpath("(//h2[@class = 'title product-field'])[1]"));
+        String actualResult = bookTitle.getText();
+
+        Assert.assertEquals(actualResult, expectedResult);
+    }
+
 }
