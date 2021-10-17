@@ -6,6 +6,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class QA_Group_Timur {
@@ -68,4 +69,45 @@ public class QA_Group_Timur {
         
         Assert.assertEquals(orderComplete.getText(),"Your order on My Store is complete.");
     }
+
+    @Test
+    public void searcheTestKorelov()  {
+        driver.get("https://petrovich.ru/");
+        WebElement search = driver.findElement(By.name("q"));
+        search.sendKeys("газобетон");
+
+        WebElement find = driver.findElement(By.xpath("//button[text()=\"Найти\"]"));
+        find.click();
+
+//        WebElement listList = driver.findElement(By.xpath("//*[@data-test=\"view-list\"]"));
+//        listList.click();
+
+        WebElement blockList = driver.findElement(By.xpath("//*[@data-test=\"view-block\"]"));
+        blockList.click();
+
+        List<WebElement> itemList = driver.findElements(By.xpath("//*[@data-test=\"product-title\"]"));
+        int count = 0;
+        for (int i = 0; i < itemList.size(); i++) {
+            Assert.assertTrue(itemList.get(i).getText().toLowerCase().contains("газобетон"));
+            System.out.println(itemList.get(i).getText());
+            count++;
+
+        }
+        System.out.println(count);
+    }
+
+    @Test
+    public void resetLoginKorelov() {
+        driver.get("https://petrovich.ru/");
+        WebElement enterButton = driver.findElement(By.xpath("//*[@data-test=\"login-link\"]"));
+        enterButton.click();
+        WebElement fogPass = driver.findElement(By.xpath("//a[text()=\"Забыли пароль?\"]"));
+        fogPass.click();
+        WebElement title = driver.findElement(By.xpath("//*[@class=\"form__title\"]"));
+        title.getText();
+        System.out.println(title.getText());
+        Assert.assertEquals(title.getText(), "Восстановление пароля:");
+
+    }
+
 }
