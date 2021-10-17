@@ -110,4 +110,23 @@ public class QA_Group_Timur {
 
     }
 
+    @Test
+    public void testFelix_IX() throws InterruptedException {
+        driver.get("https://www.spirit-of-metal.com/");
+
+        driver.findElement(By.id("search-toggle")).click();
+        String text = "skepticism";
+        driver.findElement(By.id("GlobalSearchField")).sendKeys(text + "\n");
+        driver.findElement(By.xpath("//*[@id=\"actuality\"]/div/div/section[1]/div/ul/a")).click();
+        Thread.sleep(500);
+
+        JavascriptExecutor jse = (JavascriptExecutor)driver;
+        jse.executeScript("scroll(0, 1430);");
+
+        driver.findElement(By.xpath("//*[@id=\"infinitescroll\"]/div[5]/a")).click();
+
+        WebElement q  = driver.findElement(By.xpath("//*[@id=\"profile\"]/div[2]/span[2]"));
+
+        Assert.assertEquals(q.getText(), "Ordeal");
+    }
 }
