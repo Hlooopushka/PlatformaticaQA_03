@@ -17,6 +17,7 @@ public class GroupGroup {
 
     private WebDriver driver;private static String URL1_GG = "https://www.edx.org/";
     private static String URL2_GG = "https://www.edx.org/search?q=python&tab=course";
+    String url3_DS = "https://www.saucedemo.com/";
 
     @BeforeMethod
     public void setUp() {
@@ -162,5 +163,39 @@ public class GroupGroup {
 
         Assert.assertEquals(driver.findElements(By.xpath
                 ("//div[@class='d-card-wrapper bg-primary-500']")).size(), 4);
+    }
+
+    @Test //Dasha Sandler
+    public void sandlerGoToLoginPage() {
+        String currentUrl = driver.getCurrentUrl();
+        Assert.assertEquals(currentUrl, url3_DS); //does it the same urls?
+    }
+    @Test //Dasha Sandler
+    public void sandlerPreconditionsPlaceholdersNames() {
+        String placeholderUsernameTextExpected = "Username";
+        String passwordTextExpected = "Password";
+        WebElement placeholderUserName = driver.findElement(By.xpath("//input[@id='user-name']")); //placeholder for username
+
+        WebElement placeholderPassword = driver.findElement(By.id("password")); //placeholder for password
+
+        String placeholderNameUsername = placeholderUserName.getAttribute("placeholder");
+        String placeholderPasswordActual = placeholderPassword.getAttribute("placeholder");
+
+        Assert.assertEquals(placeholderNameUsername, placeholderUsernameTextExpected); //does it have correct placeholder name for username?
+        Assert.assertEquals(passwordTextExpected, placeholderPasswordActual);  //does it have correct placeholder name for password?
+    }
+    @Test //Dasha Sandler
+    public void sandlerLoginCheck() {
+        String expectedPageAfterLogin = "https://www.saucedemo.com/inventory.html";
+        WebElement loginBtn = driver.findElement(By.id("login-button"));
+        WebElement placeholderUserName = driver.findElement(By.xpath("//input[@id='user-name']")); //placeholder for username
+        WebElement placeholderPassword = driver.findElement(By.id("password")); //placeholder for password
+
+        placeholderUserName.sendKeys("standard_user");
+        placeholderPassword.sendKeys("secret_sauce");
+        loginBtn.click();
+
+        String currentUrlAfterLogin = driver.getCurrentUrl();
+        Assert.assertEquals(currentUrlAfterLogin, expectedPageAfterLogin);
     }
 }
