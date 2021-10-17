@@ -116,6 +116,25 @@ public class GroupJavaWestCoast {
         String confirmTextText = confirmText.getText();
         Assert.assertEquals(confirmTextText, "\"Skirt\"");
     }
+
+    @Test
+    public void testGlebShkut() throws InterruptedException {
+        driver.get("https://www.ck12.org/teacher/");
+        driver.findElement(By.xpath("//a[@title=\"Create an Account with CK-12\"]")).click();
+        driver.findElement(By.xpath("//a[@class=\"button turquoise large signup-email-button js-signup-email-button\"]")).click();
+        driver.findElement(By.xpath("//input[@id='name']")).sendKeys("Dmitry Petrov");
+        driver.findElement(By.xpath("//input[@id='email']")).sendKeys("test123dima23@gmail.com"); // change this email
+        driver.findElement(By.xpath("//input[@id='password']")).sendKeys("dmitripetrov2312!sas");
+        driver.findElement(By.xpath("//span[@id=\"password_check\"]")).click();
+        Assert.assertEquals(driver.findElement(By.xpath("//input[@id='password']")).getAttribute("value"),"dmitripetrov2312!sas");
+        driver.findElement(By.xpath("//input[@id='signup_form_submit']")).click();
+        driver.findElement(By.xpath("//a[@id='continueButton']")).click();
+        Thread.sleep(5000);
+        driver.navigate().refresh();
+        driver.findElement(By.xpath("//button[contains(text(),\"Let's get started!\")]")).click();
+        driver.findElement(By.xpath("//span[contains(text(),'No, thanks. Just take me to my dashboard.')]")).click();
+        Assert.assertEquals(driver.getCurrentUrl(),"https://www.ck12.org/my/dashboard-new/content/");
+    }
 }
 
 
