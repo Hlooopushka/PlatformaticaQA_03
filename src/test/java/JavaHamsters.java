@@ -228,4 +228,36 @@ public class JavaHamsters {
         login.click();
         assertEquals(driver.getCurrentUrl(), "https://gb.ru/events/personal-consultation#form");
     }
+    @Test
+    public void testSearchAndreiShupaev() {
+        driver.get("http://automationpractice.com/");
+        WebElement input = driver.findElement(By.id("search_query_top"));
+        input.sendKeys("dress\n");
+        WebElement dress = driver.findElement(By.className("lighter"));
+
+        Assert.assertEquals(dress.getText(), "\"DRESS\"");
+
+    }
+    @Test
+    public void testContactUsAndreiShupaev() {
+        driver.get("http://automationpractice.com/");
+        WebElement contactUs = driver.findElement(By.id("contact-link"));
+        contactUs.click();
+
+        WebElement email = driver.findElement(By.id("email"));
+        email.sendKeys("email@gmail.com");
+
+        WebElement order = driver.findElement(By.id("id_order"));
+        order.sendKeys("35");
+
+        WebElement message = driver.findElement(By.id("message"));
+        message.sendKeys("I have a problem!");
+
+        WebElement buttonSend = driver.findElement(By.id("submitMessage"));
+        buttonSend.click();
+
+        WebElement error = driver.findElement(By.xpath("//*[@id=\"center_column\"]/div/ol/li"));
+        Assert.assertEquals(error.getText(), "Please select a subject from the list provided.");
+
+    }
 }
