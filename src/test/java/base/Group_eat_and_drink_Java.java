@@ -129,27 +129,7 @@ public class Group_eat_and_drink_Java {
         Assert.assertEquals(actualResult, expectedResult);
     }
 
-    public static class SignUpTatianaTTest {
-        @BeforeClass
-        public void before() {
-            WebDriverManager.chromedriver().setup();
-        }
-
-        private WebDriver driver;
-
-        @BeforeMethod
-        public void beforeTest() {
-            driver = new ChromeDriver();
-            driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-            driver.manage().window().maximize();
-        }
-
-        @AfterMethod
-        public void setDown() {
-            driver.quit();
-        }
-
-        @Test
+    @Test
         public void testRegistration() throws InterruptedException {
             driver.get("https://humans.net/");
             WebElement signUp = driver.findElement
@@ -207,4 +187,4 @@ public class Group_eat_and_drink_Java {
 
         }
     }
-}
+
