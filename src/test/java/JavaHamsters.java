@@ -226,6 +226,6 @@ public class JavaHamsters {
 
 
         login.click();
-        assertEquals(driver.getCurrentUrl(), "https://gb.ru/a/a1?to=https://gb.ru/posts&success_claim=");
+        assertEquals(driver.getCurrentUrl(), "https://gb.ru/events/personal-consultation#form");
     }
 }
