@@ -7,13 +7,11 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class NoGrValeriyKanTest {
     private WebDriver driver;
-
     private final String URL_NBA_STORE = "https://store.nba.com/";
     private final By TOP_NAV_MEN = By.id("1");//men
     private final By TOP_NAV_WOMEN = By.id("2");//women
@@ -24,14 +22,11 @@ public class NoGrValeriyKanTest {
     private final By LIST_ITEM_HEADER_CLASSNAME = By.className("breadcrumb-text");
     private final By SEARCH_FIELD = By.id("typeahead-input-desktop");
     private final By SEARCH_RESULT_ITEMS = By.xpath("//a[@data-talos = 'linkSearchResult']");
-
     private final String MEN = "MEN";
     private final String WOMEN = "WOMEN";
     private final String KIDS = "KIDS";
     private final String SEARCH_PRODUCT_NAME = "shorts\n";
-
     private String expectedResult;
-
 
     @BeforeMethod
     public void setUp() {
@@ -49,6 +44,7 @@ public class NoGrValeriyKanTest {
     @Test
     public void testValeriyKanMenuMen() throws InterruptedException {
         driver.get(URL_NBA_STORE);
+        expectedResult = MEN;
 
         WebElement menMenu = driver.findElement(TOP_NAV_MEN);
         Thread.sleep(3000);
@@ -58,13 +54,14 @@ public class NoGrValeriyKanTest {
 
         WebElement men = driver.findElement(LIST_ITEM_HEADER_CLASSNAME);
         String actualResult = men.getText();
-        expectedResult = MEN;
+
         Assert.assertEquals(actualResult, expectedResult);
     }
 
     @Test
     public void testValeriyKanMenuWomen() throws InterruptedException {
         driver.get(URL_NBA_STORE);
+        expectedResult = WOMEN;
 
         WebElement womenMenu = driver.findElement(TOP_NAV_WOMEN_XPATH);
         Thread.sleep(3000);
@@ -73,10 +70,10 @@ public class NoGrValeriyKanTest {
         Thread.sleep(2000);
 
         WebElement women = driver.findElement(LIST_ITEM_HEADER_CLASSNAME);
-        expectedResult = WOMEN;
-        String actualResult = women.getText();
-        Assert.assertEquals(actualResult, expectedResult);
 
+        String actualResult = women.getText();
+
+        Assert.assertEquals(actualResult, expectedResult);
     }
 
     @Test
@@ -90,8 +87,7 @@ public class NoGrValeriyKanTest {
         Thread.sleep(3000);
 
         List<WebElement> searchResult = driver.findElements(SEARCH_RESULT_ITEMS);
+
         Assert.assertTrue(searchResult.size() >= 1);
-
     }
-
 }
