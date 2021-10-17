@@ -16,6 +16,7 @@ import java.util.concurrent.TimeUnit;
 public class JavaHamsters {
 
     private final String URL_IK = "https://www.vprok.ru/";
+    private static final String MAIN_PAGE_URL = "http://automationpractice.com/index.php";
 
     WebDriver driver;
 
@@ -161,5 +162,35 @@ public class JavaHamsters {
         Assert.assertEquals(rightClickMessage.getText(),"You have done a right click");
         Assert.assertEquals(dynamicClickMessage.getText(),"You have done a dynamic click");
 
+    }
+
+    @Test
+    public void testSavinovaContactUsButton() {
+        driver.get(MAIN_PAGE_URL);
+        driver.findElement(By.xpath("//a[@title = 'Contact Us']")).click();
+
+        WebElement result = driver.findElement(By.xpath("//h1[@class = 'page-heading bottom-indent']"));
+
+        Assert.assertEquals(result.getText(),"CUSTOMER SERVICE - CONTACT US");
+    }
+
+    @Test
+    public void testSavinovaSignInButton() {
+        driver.get(MAIN_PAGE_URL);
+        driver.findElement(By.xpath("//a[@title = 'Log in to your customer account']")).click();
+
+        WebElement result = driver.findElement(By.xpath("//h1[@class = 'page-heading']"));
+
+        Assert.assertEquals(result.getText(),"AUTHENTICATION");
+    }
+
+    @Test
+    public void testSavinovaSaleLink() {
+        driver.get(MAIN_PAGE_URL);
+        driver.findElement(By.xpath("//div[@id = 'htmlcontent_top']//li[@class = 'htmlcontent-item-1 col-xs-4']")).click();
+
+        String result = driver.getCurrentUrl();
+
+        Assert.assertEquals(result,"https://www.prestashop.com/en");
     }
 }
