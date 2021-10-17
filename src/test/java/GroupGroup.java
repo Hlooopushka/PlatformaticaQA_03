@@ -133,7 +133,7 @@ public class GroupGroup {
     @Test
     // searching all python cources. Third course contains Pyt.. instead of full word. It's a reason why the test
     // failed, so this course was excluded from list elements.
-    public void testSearchEdx() {
+    public void testGayanaGSearchEdx() {
         driver.get(URL1_GG);
         String searchText = "python";
         driver.findElement(By.xpath("//input[@id='home-search']")).sendKeys(searchText);
@@ -154,7 +154,7 @@ public class GroupGroup {
 
     @Test
     // test if search by any type of learning python shows first 4 elements of "python" programs
-    public void testSearchEdx2() {
+    public void testGayanaGSearchEdx2() {
         driver.get(URL2_GG);
 
         driver.findElement(By.xpath
