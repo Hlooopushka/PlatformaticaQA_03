@@ -108,7 +108,7 @@ public class JavaHamsters {
         Assert.assertEquals(driver.getCurrentUrl(), expectedUrl);
     }
     @Test
-    public void ArtsiomAzarankaTestTextBox() {
+    public void testArtsiomAzarankaTextBox() {
         driver.get("https://demoqa.com/text-box");
 
         String FullName = "Marko Polo";
@@ -140,7 +140,7 @@ public class JavaHamsters {
     }
 
     @Test
-    public void ArtsiomAzarankaTestButtons(){
+    public void testArtsiomAzarankaButtons(){
 
         Actions actions = new Actions(driver);
 
