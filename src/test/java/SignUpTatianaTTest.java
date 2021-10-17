@@ -29,7 +29,7 @@ public class SignUpTatianaTTest {
     }
 
     @Test
-    public void TestRegistration() throws InterruptedException {
+    public void testRegistration() throws InterruptedException {
         driver.get("https://humans.net/");
         WebElement signUp = driver.findElement
                 (By.xpath("//a[text()='Sign up']"));
@@ -62,5 +62,27 @@ public class SignUpTatianaTTest {
         WebElement error = driver.findElement(By.xpath("//div[text()='Incorrect verification code']"));
 
         Assert.assertEquals(error.getText(), "Incorrect verification code");
+    }
+
+    @Test
+    public void testLogInIncorrectValues() throws InterruptedException {
+        driver.get("https://humans.net/registration");
+        WebElement logIn = driver.findElement(By.xpath("//span[text()='Log in']"));
+        logIn.click();
+        Thread.sleep(3000);
+
+        WebElement userName = driver.findElement(By.xpath("//input[@type='text']"));
+        userName.sendKeys("8883468487");
+
+        WebElement password = driver.findElement(By.xpath("//input[@type='password']"));
+        password.sendKeys("humans");
+
+        WebElement continueButton = driver.findElement(By.xpath("//button[@type='submit']/span"));
+        continueButton.click();
+
+        WebElement error = driver.findElement(By.xpath("//span[text()='Incorrect login or password']"));
+
+        Assert.assertEquals(error.getText(), "Incorrect login or password");
+
     }
 }
