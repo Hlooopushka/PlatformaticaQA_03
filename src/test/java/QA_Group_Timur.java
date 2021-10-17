@@ -36,6 +36,7 @@ public class QA_Group_Timur {
          *      JavascriptExecutor jsx = (JavascriptExecutor)driver;
          *      jsx.executeScript("arguments[0].click()", buttonBlouse);
          */
+
         WebElement frame = driver.findElement(By.xpath
                 ("//iframe[contains(@id,'fancybox-frame')]"));
         driver.switchTo().frame(frame);
