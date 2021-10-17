@@ -198,4 +198,16 @@ public class GroupGroup {
         String currentUrlAfterLogin = driver.getCurrentUrl();
         Assert.assertEquals(currentUrlAfterLogin, expectedPageAfterLogin);
     }
+
+    @Test
+    public void testMariaMoroz() {
+        String inputValue = "100";
+        String expectedValue = "0.1";
+        driver.get("https://www.unitconverters.net");
+        WebElement input = driver.findElement(By.name("fromVal"));
+        WebElement output = driver.findElement(By.name("toVal"));
+        input.sendKeys(inputValue);
+
+        Assert.assertEquals(output.getAttribute("value"), expectedValue);
+    }
 }
