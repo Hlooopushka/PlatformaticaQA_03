@@ -38,6 +38,45 @@ public class JavaHamsters {
         driver.quit();
     }
 
+    //Verification of search result
+    @Test
+    public void testPavelSipatySearchResult() {
+
+        driver.get("https://www.webstaurantstore.com/");
+
+        WebElement search = driver.findElement(By.id("searchval"));
+        search.sendKeys("stainless work table\n");
+
+        List<WebElement> listOfTableDescriptions = driver.findElements(By.xpath("//a[@data-testid = 'itemDescription']"));
+        if (!listOfTableDescriptions.isEmpty()) {
+            WebElement element = listOfTableDescriptions.get(listOfTableDescriptions.size() - 1);
+        }
+
+        for (int i = 0; i < listOfTableDescriptions.size(); i++) {
+            Assert.assertTrue(listOfTableDescriptions.get(i).getText().contains("Table"), "All found goods have word \"Table\" in description");
+        }
+
+    }
+
+    //Verification of successful logging in
+    @Test
+    public void testPavelSipatyLogInSuccess() {
+
+        String expectedUrl = "https://www.saucedemo.com/inventory.html";
+
+        driver.get("https://www.saucedemo.com/");
+        WebElement username = driver.findElement(By.xpath("//input[@id='user-name']"));
+        WebElement password = driver.findElement(By.xpath("//input[@id='password']"));
+
+        username.sendKeys("standard_user");
+        password.sendKeys("secret_sauce");
+
+        driver.findElement(By.xpath("//input[@id='login-button']")).click();
+
+        Assert.assertEquals(driver.getCurrentUrl(), expectedUrl);
+    }
+
+
     @Test
     public void IlyaKorolkovPopUpExistsTest() {
         driver.get(URL_IK);
@@ -127,6 +166,7 @@ public class JavaHamsters {
 
         Assert.assertEquals(driver.getCurrentUrl(), expectedUrl);
     }
+
     @Test
     public void testArtsiomAzarankaTextBox() {
         driver.get("https://demoqa.com/text-box");
@@ -149,18 +189,17 @@ public class JavaHamsters {
         WebElement currentAddress = driver.findElement(By.xpath("//p[@id='currentAddress']"));
         WebElement permanentAddress = driver.findElement(By.xpath("//p[@id='permanentAddress']"));
 
-        Assert.assertEquals(name.getText(),"Name:"+ FullName);
-        Assert.assertEquals(email.getText(),"Email:"+ UserEmail);
-        Assert.assertEquals(currentAddress.getText(),"Current Address :"+ CurrentAddress);
-        Assert.assertEquals(permanentAddress.getText(),"Permananet Address :"+ PermanentAddress);
+        Assert.assertEquals(name.getText(), "Name:" + FullName);
+        Assert.assertEquals(email.getText(), "Email:" + UserEmail);
+        Assert.assertEquals(currentAddress.getText(), "Current Address :" + CurrentAddress);
+        Assert.assertEquals(permanentAddress.getText(), "Permananet Address :" + PermanentAddress);
         //тест написан на тот результат, который выдаёт сайт (есть баг - ошибка в слове Permanent на выводе результата)
-
 
 
     }
 
     @Test
-    public void testArtsiomAzarankaButtons(){
+    public void testArtsiomAzarankaButtons() {
 
         Actions actions = new Actions(driver);
 
@@ -180,9 +219,9 @@ public class JavaHamsters {
         WebElement rightClickMessage = driver.findElement(By.xpath("//p[@id='rightClickMessage']"));
         WebElement dynamicClickMessage = driver.findElement(By.xpath("//p[@id='dynamicClickMessage']"));
 
-        Assert.assertEquals(doubleClickMessage.getText(),"You have done a double click");
-        Assert.assertEquals(rightClickMessage.getText(),"You have done a right click");
-        Assert.assertEquals(dynamicClickMessage.getText(),"You have done a dynamic click");
+        Assert.assertEquals(doubleClickMessage.getText(), "You have done a double click");
+        Assert.assertEquals(rightClickMessage.getText(), "You have done a right click");
+        Assert.assertEquals(dynamicClickMessage.getText(), "You have done a dynamic click");
 
     }
 
@@ -193,7 +232,7 @@ public class JavaHamsters {
 
         WebElement result = driver.findElement(By.xpath("//h1[@class = 'page-heading bottom-indent']"));
 
-        Assert.assertEquals(result.getText(),"CUSTOMER SERVICE - CONTACT US");
+        Assert.assertEquals(result.getText(), "CUSTOMER SERVICE - CONTACT US");
     }
 
     @Test
@@ -203,7 +242,7 @@ public class JavaHamsters {
 
         WebElement result = driver.findElement(By.xpath("//h1[@class = 'page-heading']"));
 
-        Assert.assertEquals(result.getText(),"AUTHENTICATION");
+        Assert.assertEquals(result.getText(), "AUTHENTICATION");
     }
 
     @Test
@@ -213,8 +252,9 @@ public class JavaHamsters {
 
         String result = driver.getCurrentUrl();
 
-        Assert.assertEquals(result,"https://www.prestashop.com/en");
+        Assert.assertEquals(result, "https://www.prestashop.com/en");
     }
+
     @Test
     public void NadezdhaDekhandLogo() {
         driver.get("https://gb.ru/");
@@ -248,6 +288,7 @@ public class JavaHamsters {
         login.click();
         assertEquals(driver.getCurrentUrl(), "https://gb.ru/events/personal-consultation#form");
     }
+
     @Test
     public void testSearchAndreiShupaev() {
         driver.get("http://automationpractice.com/");
@@ -258,6 +299,7 @@ public class JavaHamsters {
         Assert.assertEquals(dress.getText(), "\"DRESS\"");
 
     }
+
     @Test
     public void testContactUsAndreiShupaev() {
         driver.get("http://automationpractice.com/");
