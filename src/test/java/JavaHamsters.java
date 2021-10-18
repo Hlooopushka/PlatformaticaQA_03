@@ -12,6 +12,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.assertEquals;
@@ -352,6 +353,46 @@ public class JavaHamsters {
                 "/h2[@itemprop='name headline']//a[contains(@title,'Bread')]"));
         for (int i = 0; i < searchList.size(); i++){
             Assert.assertTrue(searchList.get(i).getText().toLowerCase().contains("bread"));
+        }
+    }
+
+    @Test
+    public void testErrorPasswordBabkinaKatya(){
+
+        driver.get("https://pravoved.ru/");
+
+        WebElement loginButton = driver.findElement(By.linkText("Войти"));
+
+        loginButton.click();
+
+
+        WebElement username = driver.findElement(By.id("email"));
+        WebElement password = driver.findElement(By.id("password"));
+        WebElement loginSubmit = driver.findElement(By.id("loginSubmit"));
+
+
+        username.sendKeys("abc@gmail.com");
+        password.sendKeys("yourPassword");
+        loginSubmit.click();
+
+        WebElement error = driver.findElement(By.xpath("//div[@id=\"wrapper\"]//*[contains(@class,\"errors\")]/li[2]"));
+
+        Assert.assertEquals(error.getText(), "Неправильная пара логин-пароль!\n" + "Авторизоваться не удалось.");
+    }
+
+    @Test
+    public void testSearchBabkinaKatya() {
+
+        driver.get("https://pravoved.ru/");
+
+        WebElement questionButton = driver.findElement(By.xpath("//div[@class='Header_navigation__1am_z']//a[@href='/questions/']"));
+
+        questionButton.click();
+
+        driver.findElement(By.id("questions-page-search")).sendKeys("договор\n");
+        List<WebElement> itemList = driver.findElements(By.xpath("//div[contains(@class, 'prvd-questions-list')]//div[@class='divH3']/a"));
+        for (int i = 0; i < itemList.size(); i++) {
+            Assert.assertTrue(itemList.get(i).getText().toLowerCase(Locale.ROOT).contains("договор"));
         }
     }
 }
