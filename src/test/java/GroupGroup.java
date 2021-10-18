@@ -210,4 +210,39 @@ public class GroupGroup {
 
         Assert.assertEquals(output.getAttribute("value"), expectedValue);
     }
+
+    @Test
+    public void testAnnaZasimova_01(){
+
+        driver.get("https://www.brainpop.com/");
+
+        WebElement getStartedButton = driver.findElement(By.id("get-started-button"));
+        getStartedButton.click();
+
+        Assert.assertEquals(driver.getCurrentUrl(), "https://www.brainpop.com/get-started/");
+    }
+
+    @Test
+    public  void testAnnaZasimova_02(){
+
+        driver.get("https://www.brainpop.com/get-started/");
+
+        WebElement title = driver.findElement(
+                By.xpath("//h1[contains(text(),'Discover the power of BrainPOP! Start by selecting')]")
+        );
+
+        Assert.assertTrue(title.isDisplayed());
+    }
+
+    @Test
+    public void testAnnaZasimova_03(){
+        driver.get("https://www.brainpop.com/");
+
+        WebElement getStartedButton = driver.findElement(By.id("get-started-button"));
+        getStartedButton.click();
+
+        Assert.assertEquals(driver.getCurrentUrl(), "https://www.brainpop.com/get-started/");
+        driver.navigate().back();
+        Assert.assertEquals(driver.getCurrentUrl(), "https://www.brainpop.com/");
+    }
 }
