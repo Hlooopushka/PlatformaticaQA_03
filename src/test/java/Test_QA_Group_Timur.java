@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class QA_Group_Timur {
+public class Test_QA_Group_Timur {
     public WebDriver driver;
 
     @BeforeMethod
@@ -33,10 +33,6 @@ public class QA_Group_Timur {
                 ("//div[@id='block_top_menu']//a[@title='Women']")).click();
         driver.findElement(By.xpath
                 ("//div[@class='product-image-container']/a[@title='Blouse']")).click();
-        /*      Нажать на обьект buttonWomen без запуска iframe
-         *      JavascriptExecutor jsx = (JavascriptExecutor)driver;
-         *      jsx.executeScript("arguments[0].click()", buttonBlouse);
-         */
 
         WebElement frame = driver.findElement(By.xpath
                 ("//iframe[contains(@id,'fancybox-frame')]"));
@@ -128,5 +124,19 @@ public class QA_Group_Timur {
         WebElement q  = driver.findElement(By.xpath("//*[@id=\"profile\"]/div[2]/span[2]"));
 
         Assert.assertEquals(q.getText(), "Ordeal");
+    }
+    @Test
+    public void evgenyRogoznev(){
+        driver.get("https://hh.ru/");
+        WebElement signIn = driver.findElement(By.xpath("//*[@data-qa='login']"));
+        JavascriptExecutor jse = (JavascriptExecutor)driver;
+        jse.executeScript("arguments[0].click();", signIn);
+        driver.findElement(By.xpath("//*[@data-qa='account-signup-email']")).sendKeys("falseLogin");
+        WebElement submitBtn = driver.findElement(By.xpath("//*[@data-qa='account-signup-submit']"));
+        submitBtn.click();
+        List<WebElement> errors= driver.findElements(By.xpath("//*[text()='Пожалуйста, укажите email или телефон']"));
+        Assert.assertEquals(errors.size(),1,
+                "Сообщение с ошибкой \"Пожалуйста, укажите email или телефон\" отсутствует или их несколько.");
+
     }
 }
