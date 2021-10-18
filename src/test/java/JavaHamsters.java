@@ -322,4 +322,36 @@ public class JavaHamsters {
         Assert.assertEquals(error.getText(), "Please select a subject from the list provided.");
 
     }
+    @Test
+    public void testLogInWrongCredentialsAlexKapran () {
+
+        driver.get("https://www.theperfectloaf.com/");
+        driver.findElement(By.xpath("//a[@class='tpl-membership__button']" +
+                "/span[@class='tpl-membership__arrow']")).click();
+
+        driver.switchTo().frame("memberful-iframe-for-overlay");
+
+        driver.findElement(By.xpath("//div[@class='mt-4 text-center']/button[@class='underline']")).click();
+        driver.findElement(By.xpath("//div[@class='mb-3']" +
+                "/input[@placeholder='Email']")).sendKeys("markus.lorg@gmail.com");
+        driver.findElement(By.xpath("//div[@class='mb-3']" +
+                "/input[@placeholder='Password']")).sendKeys("QA_Hamster1!");
+
+        driver.findElement(By.xpath("//div[@data-display-if-target='#session_mode']/input[@value='Sign in']")).click();
+
+        WebElement error = driver.findElement(By.xpath("//div[@class='error_explanation']/p"));
+        Assert.assertEquals(error.getText(), "Wrong email or password.");
+    }
+    @Test
+    public void testSearchAlexKapran(){
+        driver.get("https://www.theperfectloaf.com/");
+        driver.findElement(By.xpath("//a[@class='search_icon']/i[@class='fa fa-search search__icon']")).click();
+        driver.findElement(By.xpath("//input[@placeholder='Search']")).sendKeys("Bread\n");
+
+        List<WebElement> searchList = driver.findElements(By.xpath("//div[@class='ais-hits--item']/" +
+                "/h2[@itemprop='name headline']//a[contains(@title,'Bread')]"));
+        for (int i = 0; i < searchList.size(); i++){
+            Assert.assertTrue(searchList.get(i).getText().toLowerCase().contains("bread"));
+        }
+    }
 }
