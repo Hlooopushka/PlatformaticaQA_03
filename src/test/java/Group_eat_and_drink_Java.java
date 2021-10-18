@@ -192,12 +192,20 @@ public class Group_eat_and_drink_Java {
     }
 
 
+    private static final By EXERCISE1 = By.xpath("//*[@id=\"w3-exerciseform\"]/div/div/pre/input[1]");
+
+    private static final By EXERCISE2 = By.name("ex2");
+
+    private static final By EXERCISE3 = By.name("ex3");
+
+    private static final By NEXTEX = By.id("correctnextbtn");
 
     public void navigateToPage() {
 
         String URL = "https://www.w3schools.com/";
         driver.get(URL);
     }
+  
     public void completeExerciseCorrect() {
 
         WebElement learnJava = driver.findElement(By.xpath("//*[@id=\"main\"]/div[6]/div/div[3]/div/a"));
@@ -213,9 +221,9 @@ public class Group_eat_and_drink_Java {
         learnJava.click();
         driver.findElement(EXERCISE1).sendKeys("print");
         driver.findElement(EXERCISE2).sendKeys("out");
+
         driver.findElement(EXERCISE3).sendKeys("phrase");
     }
-
 
     public void proceedToResultPage(){
 
@@ -226,27 +234,27 @@ public class Group_eat_and_drink_Java {
         System.out.println("current page title " + driver.getTitle());
 
         ArrayList<String> newTb = new ArrayList<String>(driver.getWindowHandles());
+
+
         driver.switchTo().window(newTb.get(1));
+
         System.out.println("current URL " + driver.getCurrentUrl());
         System.out.println("current page title " + driver.getTitle());
 
         WebElement answerButton = driver.findElement(By.xpath("//*[@id=\"answerbutton\"]"));
         answerButton.click();
-
-
     }
+  
     @Test
-
     public void testElenauSIncorrectResultCheck(){
         navigateToPage();
         completeExerciseIncorrect();
         proceedToResultPage();
 
         WebElement warning = driver.findElement(By.xpath("//*[@id=\"assignmentNotCorrect\"]/h2"));
+
         Assert.assertEquals(warning.getText(),"Not Correct");
-
     }
-
 
     @Test
     public void testElenauSCorrectResultCheck() {
@@ -256,13 +264,11 @@ public class Group_eat_and_drink_Java {
         proceedToResultPage();
 
         WebElement result = driver.findElement(By.xpath("//*[@id=\"assignmentCorrect\"]/h2"));
+
         Assert.assertEquals(result.getText(), "Correct!");
-
-
     }
 
     @Test
-
     public void testElenauSAssignmentList() {
 
         navigateToPage();
@@ -271,24 +277,13 @@ public class Group_eat_and_drink_Java {
 
         List<WebElement> links = driver.findElements(By.tagName("a"));
         for (WebElement  l:links) {
-
             String name = l.getText();
-
             System.out.println(name);
-
         }
         driver.findElement(NEXTEX).click(); ;
 
         WebElement description = driver.findElement(By.xpath("//*[@id=\"assignmenttext\"]/p"));
+
         Assert.assertEquals(description.getText(),"Comments in Java are written with special characters. Insert the missing parts:");
-
-
-
-
-
-
     }
-
-
 }
-
