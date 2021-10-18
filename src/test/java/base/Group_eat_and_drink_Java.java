@@ -23,6 +23,7 @@ public class Group_eat_and_drink_Java {
     String expectedResultURLCorrectItem = "https://askent.ru/cat/sumki/ryukzak_63/";
     String expectedResultURLCabinet = "https://askent.ru/order/";
     String expectedResultSingIn = "Не верный логин или пароль";
+    private static final String URL = "https://www.godaddy.com/";
 
     @BeforeMethod
     public void setUp() {
@@ -186,5 +187,32 @@ public class Group_eat_and_drink_Java {
         Assert.assertEquals(error.getText(), "Incorrect login or password");
 
     }
+
+    @Test
+    void testSergeA_navigateMainPage() {
+        driver.get(URL);
+        expectedOrActualResult("https://www.godaddy.com/", URL);
+    }
+
+    @Test
+    void testSergeA_searchDomain() {
+        testSergeA_navigateMainPage();
+        String name = "google.com";
+        WebElement buttonNameForSearch = driver.findElement(By.className("searchText"));
+        buttonNameForSearch.click();
+        WebElement inputSearchDomain = driver.findElement(By.xpath("//input[@type='text'][1]"));
+
+        inputSearchDomain.sendKeys(name);
+        buttonNameForSearch.click();
+
+        String expectedResult = "https://www.godaddy.com/domainsearch/find?checkAvail=1&domainToCheck=" + name;
+        String actualResult = "https://www.godaddy.com/domainsearch/find?checkAvail=1&domainToCheck=" + name;
+        expectedOrActualResult(expectedResult, actualResult);
+    }
+
+    public void expectedOrActualResult(String expectedResult, String actualResult) {
+        Assert.assertEquals(expectedResult, actualResult);
+    }
 }
+
 
