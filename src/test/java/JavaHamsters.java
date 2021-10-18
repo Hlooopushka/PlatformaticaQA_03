@@ -4,6 +4,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -80,6 +81,25 @@ public class JavaHamsters {
         Thread.sleep(1000);
 
         Assert.assertEquals(driver.findElement(By.className("js-address-data")).getText().trim(), region);
+    }
+
+    @Test
+    public void AlexeyKhomozovRegionListCountTest() {
+
+        driver.get(URL_IK);
+
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--disable-geolocation");
+
+        WebElement changeRegionButton = driver.findElement(By.className("xfnew-header__change-region"));
+        changeRegionButton.click();
+
+        List<WebElement> regionsCount = driver.findElements(By.xpath(
+                "//div/a[@class=\"xf-popup-polygons__region xf-popup-polygons__region-online\"]"));
+        int actualRegionsCount = regionsCount.size();
+        int expectedRegionsCount = 55; //ожидаемое на момент реализации теста
+
+        Assert.assertEquals(actualRegionsCount, expectedRegionsCount);
     }
 
     @Test
