@@ -16,6 +16,12 @@ public class BugBustersTest {
     WebDriverWait wait;
     JavascriptExecutor js;
 
+    public void browse(){
+        driver.get("https://coderanch.com/");
+        WebElement browse = driver.findElement(By.id("browse-button"));
+        browse.click();
+    }
+
     @BeforeMethod
     public void setUp() {
         WebDriverManager.chromedriver().setup();
@@ -73,5 +79,35 @@ public class BugBustersTest {
         js.executeScript("arguments[0].click();", darkThemeButton);
 
         Assert.assertEquals(html.getAttribute("data-theme"), "dark");
+    }
+
+    @Test
+    public void testMichaelBrowse() {
+        browse();
+        String actURL = "https://coderanch.com/forums/";
+        String expURL = driver.getCurrentUrl();
+        Assert.assertEquals(expURL, actURL);
+    }
+
+    @Test
+    public void testMichael(){
+
+        browse();
+
+        WebElement RegisterLogin = driver.findElement(By.cssSelector("#loginLink"));
+        RegisterLogin.click();
+
+        WebElement username = driver.findElement(By.name("username"));
+        WebElement password = driver.findElement(By.name("password"));
+        WebElement login = driver.findElement(By.className("styled-button"));
+
+        username.sendKeys("abc@gmail.com");
+        password.sendKeys("your_password");
+        login.click();
+
+        WebElement error = driver.findElement(By.className("errorMsg"));
+        Assert.assertEquals(error.getText(), "Invalid login name / email or password.\n" +
+                "\n" +
+                "Sorry, there have too many attempts from this IP lately and the cows are tired. Please try again a minute later");
     }
 }
