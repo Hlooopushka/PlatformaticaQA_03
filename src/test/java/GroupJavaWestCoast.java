@@ -139,7 +139,7 @@ public class GroupJavaWestCoast {
     }
 
     @Test
-    public void AntonHromcenkoTest() {
+    public void testAntonHromcenko() {
         driver.get("https://www.webstaurantstore.com");
         driver.findElement(By.xpath("//a[@data-testid='register-nav-link']")).click();
         driver.findElement(By.id("email")).sendKeys(EMAILGENERATOR);
