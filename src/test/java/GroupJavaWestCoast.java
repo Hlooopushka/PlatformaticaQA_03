@@ -1,4 +1,5 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -22,6 +23,7 @@ public class GroupJavaWestCoast {
     private static final By EMAILFIELD = By.id("user_email");
     private static final By PASSWORDFIELD = By.id("user_password");
     private static final By SIGNINBUTTON = By.xpath("//button[text()='Sign in']");
+    private static final String EMAILGENERATOR = RandomStringUtils.randomAlphabetic(5) + RandomStringUtils.randomAlphanumeric(2) + "!" + "@gmail.com";
 
     public void signInMethodIliaP(){
         driver.findElement(LOGINBUTTON).click();
@@ -134,6 +136,22 @@ public class GroupJavaWestCoast {
         driver.findElement(By.xpath("//button[contains(text(),\"Let's get started!\")]")).click();
         driver.findElement(By.xpath("//span[contains(text(),'No, thanks. Just take me to my dashboard.')]")).click();
         Assert.assertEquals(driver.getCurrentUrl(),"https://www.ck12.org/my/dashboard-new/content/");
+    }
+
+    @Test
+    public void AntonHromcenkoTest() {
+        driver.get("https://www.webstaurantstore.com");
+        driver.findElement(By.xpath("//a[@data-testid='register-nav-link']")).click();
+        driver.findElement(By.id("email")).sendKeys(EMAILGENERATOR);
+        driver.findElement(By.id("billname")).sendKeys("test");
+        driver.findElement(By.id("billaddr")).sendKeys("100 Terminal Dr");
+        driver.findElement(By.id("billphone")).sendKeys("9549549544");
+        driver.findElement(By.id("billzip")).sendKeys("33315");
+        driver.findElement(By.id("password")).sendKeys("Test1!");
+        driver.findElement(By.id("complete_registration")).click();
+
+        Assert.assertEquals(driver.getCurrentUrl(),"https://www.webstaurantstore.com/myaccount.html?goto=register");
+
     }
 }
 
