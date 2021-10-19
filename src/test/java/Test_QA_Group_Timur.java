@@ -1,6 +1,7 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -9,7 +10,7 @@ import org.testng.annotations.Test;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class QA_Group_Timur {
+public class Test_QA_Group_Timur {
     public WebDriver driver;
 
     @BeforeMethod
@@ -33,10 +34,6 @@ public class QA_Group_Timur {
                 ("//div[@id='block_top_menu']//a[@title='Women']")).click();
         driver.findElement(By.xpath
                 ("//div[@class='product-image-container']/a[@title='Blouse']")).click();
-        /*      Нажать на обьект buttonWomen без запуска iframe
-         *      JavascriptExecutor jsx = (JavascriptExecutor)driver;
-         *      jsx.executeScript("arguments[0].click()", buttonBlouse);
-         */
 
         WebElement frame = driver.findElement(By.xpath
                 ("//iframe[contains(@id,'fancybox-frame')]"));
@@ -71,7 +68,7 @@ public class QA_Group_Timur {
     }
 
     @Test
-    public void searcheTestKorelov()  {
+    public void searcheTestKorelov() {
         driver.get("https://petrovich.ru/");
         WebElement search = driver.findElement(By.name("q"));
         search.sendKeys("газобетон");
@@ -128,5 +125,32 @@ public class QA_Group_Timur {
         WebElement q  = driver.findElement(By.xpath("//*[@id=\"profile\"]/div[2]/span[2]"));
 
         Assert.assertEquals(q.getText(), "Ordeal");
+    }
+    @Test
+    public void testAlexeyLugovoy(){
+        driver.get("https://www.anekdot.ru/");
+        WebElement anekdoty = driver.findElement(By.xpath("//ul/li/a[text()='Анекдоты']"));
+        Actions navesti = new Actions(driver);
+        navesti.moveToElement(anekdoty).build().perform();
+        WebElement bestMonth = driver.findElement(By.xpath("//ul/li/a[@title='Самые смешные анекдоты за месяц']"));
+        bestMonth.click();
+        WebElement first = driver.findElement(By.xpath("//div[@data-id='1251367']/div[@class='text']"));
+        System.out.println(first.getText());
+        WebElement h1 = driver.findElement(By.cssSelector("body h1"));
+        Assert.assertEquals(h1.getText().toUpperCase(), "САМЫЕ СМЕШНЫЕ АНЕКДОТЫ ЗА МЕСЯЦ!");
+    }
+    @Test
+    public void evgenyRogoznev(){
+        driver.get("https://hh.ru/");
+        WebElement signIn = driver.findElement(By.xpath("//*[@data-qa='login']"));
+        JavascriptExecutor jse = (JavascriptExecutor)driver;
+        jse.executeScript("arguments[0].click();", signIn);
+        driver.findElement(By.xpath("//*[@data-qa='account-signup-email']")).sendKeys("falseLogin");
+        WebElement submitBtn = driver.findElement(By.xpath("//*[@data-qa='account-signup-submit']"));
+        submitBtn.click();
+        List<WebElement> errors= driver.findElements(By.xpath("//*[text()='Пожалуйста, укажите email или телефон']"));
+        Assert.assertEquals(errors.size(),1,
+                "Сообщение с ошибкой \"Пожалуйста, укажите email или телефон\" отсутствует или их несколько.");
+
     }
 }
