@@ -151,7 +151,22 @@ public class GroupJavaWestCoast {
         driver.findElement(By.id("complete_registration")).click();
 
         Assert.assertEquals(driver.getCurrentUrl(),"https://www.webstaurantstore.com/myaccount.html?goto=register");
+    }
+  
+    @Test
+    public void testMarianaLuchynets() {
 
+        driver.get("https://www.google.com/maps");
+
+        driver.findElement(By.cssSelector("#searchboxinput")).sendKeys("Austin Downtown");
+        driver.findElement(By.id("searchbox-searchbutton")).click();
+        driver.findElement(By.xpath("//div[contains(text(),'Directions')]")).click();
+        driver.findElement(By.cssSelector(".Zvyb8e-T3iPGc-icon.reverse")).click();
+        driver.findElement(By.cssSelector("input[placeholder='Choose destination, or click on the map...']")).sendKeys("Zilker park Austin");
+        driver.findElement(By.cssSelector("img[aria-label='Walking']")).click();
+
+        Assert.assertEquals(driver.findElement(By.xpath("//span[contains(text(),'Guadalupe St and Ann and Roy Butler Hike and Bike Trail')]")).getText(),
+                "Guadalupe St and Ann and Roy Butler Hike and Bike Trail");
     }
 }
 
